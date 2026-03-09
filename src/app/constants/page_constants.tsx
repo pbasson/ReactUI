@@ -1,4 +1,4 @@
 export class PageConstants {
-  static brandName = "ReactUI";
-  static headerText: string = "Welcome To React Testing";
+  static readonly brandName = "ReactUI";
+  static readonly headerText = "Welcome To React Testing";
 }

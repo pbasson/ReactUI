@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 function PageContent() {
   const date: Date = new Date();
-  
 
   return (
     <table className="table-auto border-collapse border border-slate-500">
@@ -34,7 +33,7 @@ function ButtonRefresh() {
     return ( <button onClick={handleRefresh} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">{buttonLabel}</button> );
 }
 
-export const PageComponents = {
+export const PageComponent = {
     PageContent,
     PageHeader,
     ButtonRefresh,

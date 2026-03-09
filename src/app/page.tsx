@@ -1,17 +1,17 @@
 "use client";
 
-import { PageComponents } from "./components/page_components";
-import NavbarComponents from "./components/navbar_component";
+import { PageComponent } from "./components/layout/page_component";
+import NavbarComponent from "./components/layout/navbar_component";
 import { PageConstants } from "./constants/page_constants";
-import SpinnerComponent from "./components/spinner_component";
+import SpinnerComponent from "./components/shared/spinner_component";
 
 function PageLayout() {
   return (
     <>
-      <NavbarComponents />
-      <PageComponents.PageHeader headerText={PageConstants.headerText}   />
-      <PageComponents.PageContent />
-      <PageComponents.ButtonRefresh />
+      <NavbarComponent />
+      <PageComponent.PageHeader headerText={PageConstants.headerText}   />
+      <PageComponent.PageContent />
+      <PageComponent.ButtonRefresh />
       <SpinnerComponent />
     </>
   );

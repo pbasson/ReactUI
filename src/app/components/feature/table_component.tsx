@@ -54,7 +54,7 @@ function ImageGrid() {
 }
 
 
-export const TableComponents = {
+export const TableComponent = {
     ImageGrid,
     ImageComponent
 }

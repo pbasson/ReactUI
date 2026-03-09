@@ -2,10 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { PageConstants } from '../constants/page_constants';
+import { PageConstants } from '../../constants/page_constants';
 
 
-function NavbarComponents() {
+function NavbarComponent() {
 
   return (
     <Navbar className="bg-body-tertiary">
@@ -34,4 +34,4 @@ function NavbarComponents() {
   );
 }
 
-export default NavbarComponents;
+export default NavbarComponent;
