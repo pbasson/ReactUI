@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 
 function PageContent() {
   const date: Date = new Date();
+  
+
   return (
     <table className="table-auto border-collapse border border-slate-500">
       <tbody>
@@ -20,11 +22,8 @@ function PageContent() {
   );
 }
 
-function PageHeader() {
-    const headerText: string = "Welcome To React Testing";
-    return (
-        <h1 className="text-3xl font-bold mb-4">{headerText}</h1>
-    );
+function PageHeader({ headerText }: { headerText: string }) {
+    return ( <h1 className="text-3xl font-bold mb-4">{headerText}</h1> );
 }
 
 function ButtonRefresh() {
