@@ -34,6 +34,7 @@ function ButtonLoadingIcon() {
 
 function ButtonRefreshLoading() {
   const className: string = "mt-4 px-4 py-2 bg-blue-500 text-white rounded";
+  const texting: string= ` ${PageConstants.spinnerText}`;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -50,7 +51,7 @@ function ButtonRefreshLoading() {
     return (
       <Button variant="primary" disabled>
         <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-        ` {PageConstants.spinnerText}`
+        {texting}
       </Button>
     );
   }
