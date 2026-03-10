@@ -1,9 +1,9 @@
 "use client";
 
-import { PageComponent } from "./components/layout/page_component";
-import NavbarComponent from "./components/layout/navbar_component";
-import { PageConstants } from "./constants/page_constants";
-import SpinnerComponent from "./components/shared/spinner_component";
+import { ButtonComponent } from "./components/layout/ButtonComponent";
+import { PageComponent } from "./components/layout/PageComponent";
+import NavbarComponent from "./components/layout/NavbarComponent";
+import { PageConstants } from "./constants/PageConstants";
 
 function PageLayout() {
   return (
@@ -11,8 +11,9 @@ function PageLayout() {
       <NavbarComponent />
       <PageComponent.PageHeader headerText={PageConstants.headerText}   />
       <PageComponent.PageContent />
-      <PageComponent.ButtonRefresh />
-      <SpinnerComponent />
+      <ButtonComponent.ButtonRefresh />
+      <ButtonComponent.ButtonLoading />
+      <ButtonComponent.ButtonLoadingIcon />
     </>
   );
 }

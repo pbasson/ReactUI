@@ -1,10 +1,11 @@
+import { PageConstants } from '@/app/constants/PageConstants';
 import Spinner from 'react-bootstrap/Spinner';
 
 function SpinnerComponent() {
-    const spinnerText: string = "Loading...";
+    
     return (
         <Spinner animation="border" role="status">
-            <span className="visually-hidden">{spinnerText}</span>
+            <span className="visually-hidden">{PageConstants.spinnerText}</span>
         </Spinner>
     );
 }
