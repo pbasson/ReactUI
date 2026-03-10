@@ -8,12 +8,9 @@ import { PageConstants } from "./constants/PageConstants";
 function PageLayout() {
   return (
     <>
-      <NavbarComponent />
       <PageComponent.PageHeader headerText={PageConstants.headerText}   />
       <PageComponent.PageContent />
-      <ButtonComponent.ButtonRefresh />
-      <ButtonComponent.ButtonLoading />
-      <ButtonComponent.ButtonLoadingIcon />
+      <ButtonComponent.ButtonRefreshLoading />
     </>
   );
 }
@@ -21,6 +18,7 @@ function PageLayout() {
 export default function Home() {
   return (
     <>
+      <NavbarComponent />
       <PageLayout />
     </>
   );
