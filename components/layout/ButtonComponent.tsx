@@ -1,5 +1,5 @@
 "use client";
-import { PageConstants } from "@/app/constants/PageConstants";
+import { PageConstants } from "@/constants/PageConstants";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from 'react-bootstrap/Button';

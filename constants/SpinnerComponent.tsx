@@ -1,4 +1,4 @@
-import { PageConstants } from '@/app/constants/PageConstants';
+import { PageConstants } from '@/constants/PageConstants';
 import Spinner from 'react-bootstrap/Spinner';
 
 function SpinnerComponent() {
