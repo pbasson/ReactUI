@@ -1,19 +1,28 @@
 // "use client";
+import appstyle from "../StyleSheets/AppStyles.module.css";
+
+import { useState, useEffect } from "react";
 
 function DateTable() {
-  const date: Date = new Date();
-    const className: string = "table-auto border-collapse border border-slate-500";
+  const [getdateTime, setDateTime] = useState<Date>( new Date());
+
+  useEffect( () => {
+    const interval = setInterval( () => {
+      setDateTime(new Date()); }, 1000 );
+    
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <table className={className}>
+    <table className={appstyle.containerStyle}>
       <tbody>
         <tr>
           <td>{getDateName({ input: DateHolder.date })}</td>
-          <td>{date.toLocaleDateString()}</td>
+          <td>{getdateTime.toLocaleDateString()}</td>
         </tr>
         <tr>
           <td>{getDateName({ input: DateHolder.time })}</td>
-          <td>{date.toLocaleTimeString()}</td>
+          <td>{getdateTime.toLocaleTimeString()}</td>
         </tr>
       </tbody>
     </table>
