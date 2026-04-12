@@ -5,7 +5,7 @@ import appstyle from "../StyleSheets/AppStyles.module.css";
 function InputTable()
 {
     const [getRange, setRange] = useState(0);
-    // const [getDate, setDate] = useState( new Date());
+    const [getDate, setDate] = useState( new Date());
 
     const handleOnChangeRange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRange(Number(event.target.value));
@@ -14,6 +14,12 @@ function InputTable()
     // const handleOnChangeDate = (event: React.ChangeEvent<HTML >) => {
     //     setDate(event.target.value);
     // };
+
+
+    function getPlaceholder(input: string) : string
+    {
+        return (`Please enter ${input}`);
+    }
 
     return (
     <>
@@ -32,47 +38,61 @@ function InputTable()
                     </tr>
                     <tr>
                         <td> Text: </td>
-                        <td> <input type="text" placeholder="Please Make Entry" /> </td>
+                        <td> <input type="text" placeholder={getPlaceholder("Text")} /> </td>
+                        
                     </tr>
                     <tr>
-                        <td> email: </td>
-                        <td> <input type="email" placeholder="Please enter Email" /> </td>
+                        <td> Email: </td>
+                        <td> <input type="email" placeholder={getPlaceholder("Email")} /> </td>
                     </tr>
                     <tr>
-                        <td> number: </td>
-                        <td> <input type="number" placeholder="Please enter Number" /> </td>
+                        <td> Number: </td>
+                        <td> <input type="number" placeholder={getPlaceholder("Number")} /> </td>
                     </tr>
                     <tr>
-                        <td> search: </td>
+                        <td> Search: </td>
                         <td> <input type="search" placeholder="Search...." /> </td>
                     </tr>
                     <tr>
-                        <td> textarea:</td>
-                        <td><textarea placeholder="Please Text Entry"></textarea></td>
+                        <td> Textarea:</td>
+                        <td><textarea placeholder={getPlaceholder("TextArea")}></textarea></td>
                     </tr>
                     <tr>
-                        <td> datetime: </td>
-                        <td> <input type="datetime-local"  /> </td>
+                        <td> Datetime: </td>
+                        <td> <input type="datetime-local" readOnly value={new Date().toLocaleDateString()}  /> </td>
                     </tr>
                     <tr>
-                        <td> date: </td>
-                        <td> <input type="date"  /> </td>
+                        <td> Date: </td>
+                        <td> <input type="date" value={new Date().toLocaleDateString().split('T')[0]} /> </td>
                     </tr>
                     <tr>
-                        <td> time: </td>
+                        <td> Time: </td>
                         <td> <input type="time" /> </td>
                     </tr>
                     <tr>
-                        <td> range: </td>
+                        <td> Range: </td>
                         <td> <input type="range" value={getRange} min={0} max={50} step={10} onChange={handleOnChangeRange} /> </td>
                     </tr>
                     <tr>
-                        <td> hidden: </td>
+                        <td> Hidden: </td>
                         <td> <input type="hidden" /> </td>
                     </tr>
                     <tr>
-                        <td> color: </td>
+                        <td> Color: </td>
                         <td> <input type="color" /> </td>
+                    </tr>
+                    <tr>
+                        <td> Dropdown: </td>
+                        <td>
+                            <select>
+                                <option value={0}>Select...</option>
+                                <option value={1}>Op01</option>
+                                <option value={2}>Op02</option>
+                                <option value={3}>Op03</option>
+                                <option value={4}>Op04</option>
+                                <option value={5}>Op05</option>
+                            </select>
+                        </td>
                     </tr>
                     </tbody>
 
