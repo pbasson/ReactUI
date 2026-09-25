@@ -8,7 +8,7 @@ services:
     # Refresh the dependency volume from the lockfile whenever the container starts.
     command: sh -c "npm ci && exec npm run dev -- --hostname 0.0.0.0 --port 3001"
     volumes:
-      - .:/app
+      - ./src:/app
       - dev_node_modules:/app/node_modules
       - dev_next:/app/.next
     networks:
