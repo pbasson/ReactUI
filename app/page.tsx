@@ -1,11 +1,11 @@
 "use client";
 
-import { PageComponent } from "@/components/layout/PageComponent";
-import { TimeComponent } from "@/components/feature/TimeComponent";
-import { PageConstants } from "@/constants/PageConstants";
+import dynamic from "next/dynamic";
+
 import About from "../components/feature/about/about";
 import { TestComponent } from "@/components/feature/TestComponent";
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { DashboardComponent } from "@/components/feature/Dashboard/DashboardComponent";
 
 const navLinkStyles = ({ isActive }: { isActive: boolean }) => ({
   color: isActive ? '#007bff' : '#333',
@@ -35,20 +35,17 @@ function PageLayout() {
   );
 }
 
-function HomeLayout()
-{
-  return ( <>
-    <PageComponent.PageHeader headerText={PageConstants.headerText}   />
-    <TimeComponent.DateTable />
-  </> );
-}
+function HomeLayout() { return ( <>
+  <DashboardComponent.DashboardExport />
+</> ); }
 
+
+// BrowserRouter needs browser APIs unavailable during Next.js prerendering.
+const ClientPageLayout = dynamic(() => Promise.resolve(PageLayout), { ssr: false });
 
 export default function Home() {
-  return (
-    <>
+  return ( <>
       {/* <NavbarComponent /> */}
-      <PageLayout />
-    </>
-  );
+      <ClientPageLayout />
+  </>);
 }

@@ -15,7 +15,7 @@ function DateTable() {
 
   return (
     <table className={appstyle.containerStyle}>
-      <tbody>
+      {/* <tbody>
         <tr>
           <td>{getDateName({ input: DateHolder.date })}</td>
           <td>{getdateTime.toLocaleDateString()}</td>
@@ -23,6 +23,13 @@ function DateTable() {
         <tr>
           <td>{getDateName({ input: DateHolder.time })}</td>
           <td>{getdateTime.toLocaleTimeString()}</td>
+        </tr>
+      </tbody> */}
+
+      <tbody>
+        <tr>
+          <td>{getDateName({ input: DateHolder.datetime })}</td>
+          <td>{getdateTime.toLocaleDateString()} - {getdateTime.toLocaleTimeString()}</td>
         </tr>
       </tbody>
     </table>
@@ -41,6 +48,7 @@ function getDateName({input} : { input: DateHolder }){
 }
 
 enum DateHolder {
+    datetime = "Datetime",
     date = "Date",
     time = "Time"
 }

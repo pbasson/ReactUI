@@ -1,9 +1,16 @@
+.tableContainer {
+  height: 400px; /* Fixed height is required */
+  overflow-y: scroll; /* Enables vertical scrollbar */
+  overflow-x: auto; /* Optional: enables horizontal scroll if needed */
+}
 
-.containerStyle {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background-color: #f0f0f0;
-    padding: 1rem;
-    border-radius: 8px;
+.width-max
+{
+  width: 100%;
+}
+
+
+.width-half
+{
+  width: 50%;
 }

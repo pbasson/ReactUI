@@ -22,8 +22,9 @@ function InputTable()
     }
 
     return (
-    <>
-        <h1>Test_Result</h1>
+    <div style={{alignContent: "center"}}>
+
+        <h1>Test_Result V01</h1>
         <form className={appstyle.containerStyle} onSubmit={SubmitForm} style={{paddingLeft: "35%"}}>
             <div>
                 <table>
@@ -102,7 +103,7 @@ function InputTable()
             </div>
 
         </form>
-    </>
+    </div>
 )
 }    
 
