@@ -4,12 +4,8 @@ services:
     build:
       context: ./src
       dockerfile: Dockerfile
-    environment:
-      API_BASE_URL: ${API_BASE_URL:-}
-      API_MAIN_URL: ${API_MAIN_URL:-}
-      API_HEALTH_BASE_URL: ${API_HEALTH_BASE_URL:-http://host.docker.internal:5820}
-      API_HEALTH_URL: ${API_HEALTH_URL:-health}
-      XAPI_KEY: ${XAPI_KEY:-}
+    env_file:
+      - .env
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:

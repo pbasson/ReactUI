@@ -3,9 +3,6 @@ services:
     image: reactui:dev
     build:
       target: development
-    environment:
-      NODE_ENV: development
-    # Refresh the dependency volume from the lockfile whenever the container starts.
     command: sh -c "npm ci && exec npm run dev -- --hostname 0.0.0.0 --port 3001"
     volumes:
       - ./src:/app
