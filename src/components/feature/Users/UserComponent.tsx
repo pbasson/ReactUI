@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { getUsers } from "@/services/userService";
-import type { User } from "@/models/user";
+import type { UsersResponse } from "@/models/user";
+import styles from "@/components/StyleSheets/AppStyles.module.css";
 
 function UsersPage() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UsersResponse>({ records: [], totalRecords: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,20 +30,47 @@ function UsersPage() {
     };
   }, []);
 
-  return (
-    <div>
-      <h1>Users</h1>
-      {loading && <p role="status">Loading users…</p>}
-      {error && <p role="alert">{error}</p>}
-      {!loading && !error && users.length === 0 && <p>No users found.</p>}
-      {users.map(user => (
-        <div key={user.id}>
-          {[user.firstName, user.lastName].filter(Boolean).join(" ") ||
-            user.userName || `User ${user.id}`}
-        </div>
-      ))}
-    </div>
-  );
+return (
+  <div>
+    <h1>Users</h1>
+
+    {loading && <p role="status">Loading users…</p>}
+    {error && <p role="alert">{error}</p>}
+
+    {!loading && !error && (
+      <>
+        <p>Total users: {users.totalRecords}</p>
+
+        {users.totalRecords === 0 ? ( <p>No users found.</p>) : (
+
+          <div className={styles.tableContainer}>
+            <table className="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Full name</th>
+                  <th scope="col">Date of birth</th>
+                  <th scope="col">Email</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {users.records.map(user => (
+                  <tr key={user.id}>
+                    <td>{user.userName ?? "—"}</td>
+                    <td> {[user.firstName, user.lastName].filter(Boolean).join(" ") ?? "-"} </td>
+                    <td>{user.dateOfBirth ?? "—"}</td>
+                    <td>{user.email ?? "—"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </>
+    )}
+  </div>
+);
 }
 
 export default UsersPage;

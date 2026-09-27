@@ -8,3 +8,8 @@ export interface User {
   dateOfBirth: string | null;
   isActive: boolean;
 }
+
+export interface UsersResponse {
+  records: User[];
+  totalRecords: number;
+}

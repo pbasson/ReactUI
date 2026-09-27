@@ -1,12 +1,17 @@
 "use server";
 
 import { apiGet } from "./apiClient";
-import type { User } from "../models/user";
+import type { UsersResponse } from "../models/user";
 
-export async function getUsers(): Promise<User[]> {
-  const users = await apiGet<User[]>("/user");
-  if (!Array.isArray(users)) {
-    throw new Error("The users API did not return an array.");
+export async function getUsers(): Promise<UsersResponse> {
+  const users = await apiGet<UsersResponse>("/user");
+  if (
+    !users ||
+    !Array.isArray(users.records) ||
+    !Number.isInteger(users.totalRecords) ||
+    users.totalRecords < 0
+  ) {
+    throw new Error("The users API must return records and a non-negative totalRecords count.");
   }
   return users;
 }
