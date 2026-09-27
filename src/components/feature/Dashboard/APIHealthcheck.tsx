@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getApiHealth } from "@/services/healthService";
 import styles from "./APIHealthcheck.module.css";
+import appStyles from "@/components/StyleSheets/AppStyles.module.css";
 
 function APIStatus() {
   const [health, setHealth] = useState<{ live: boolean; ready: boolean } | null>(null);
@@ -38,15 +39,15 @@ function APIStatus() {
 
   return (
     <div aria-live="polite">
-      <table>
-        <caption>API STATUS</caption>
+      <h3>API STATUS: </h3>
+      <table className={`table ${appStyles["width-xsmall"]}`}>
+        <thead>
+            <th>LIVE:</th>
+            <th>READY:</th>
+        </thead>
         <tbody>
           <tr>
-            <th scope="row">LIVE:</th>
             <td>{indicator(health?.live, "Live", "Unavailable")}</td>
-          </tr>
-          <tr>
-            <th scope="row">READY:</th>
             <td>{indicator(health?.ready, "Healthy", "Unhealthy")}</td>
           </tr>
         </tbody>

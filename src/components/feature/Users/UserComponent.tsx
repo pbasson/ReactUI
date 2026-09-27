@@ -5,7 +5,12 @@ import { getUsers } from "@/services/userService";
 import type { UsersResponse } from "@/models/user";
 import styles from "@/components/StyleSheets/AppStyles.module.css";
 
-function UsersPage() {
+
+interface UserComponentProps {
+  totalRecords: (count: number) => void;
+}
+
+function UsersPage( { totalRecords} : UserComponentProps) {
   const [users, setUsers] = useState<UsersResponse>({ records: [], totalRecords: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +22,8 @@ function UsersPage() {
       try {
         const data = await getUsers();
         if (!cancelled) setUsers(data);
-      } catch {
+          totalRecords(data.totalRecords);
+        } catch {
         if (!cancelled) setError("Unable to load users. Please try again later.");
       } finally {
         if (!cancelled) setLoading(false);
@@ -28,7 +34,7 @@ function UsersPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [totalRecords]);
 
 return (
   <div>

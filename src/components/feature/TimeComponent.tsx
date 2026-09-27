@@ -15,21 +15,10 @@ function DateTable() {
 
   return (
     <table className={appstyle.containerStyle}>
-      {/* <tbody>
-        <tr>
-          <td>{getDateName({ input: DateHolder.date })}</td>
-          <td>{getdateTime.toLocaleDateString()}</td>
-        </tr>
-        <tr>
-          <td>{getDateName({ input: DateHolder.time })}</td>
-          <td>{getdateTime.toLocaleTimeString()}</td>
-        </tr>
-      </tbody> */}
-
       <tbody>
         <tr>
-          <td>{getDateName({ input: DateHolder.datetime })}</td>
-          <td>{getdateTime.toLocaleDateString()} - {getdateTime.toLocaleTimeString()}</td>
+          <td><h4><b>{getDateName({ input: DateHolder.datetime })}</b></h4></td>
+          <td><h4>{getdateTime.toLocaleDateString()} - {getdateTime.toLocaleTimeString()}</h4></td>
         </tr>
       </tbody>
     </table>

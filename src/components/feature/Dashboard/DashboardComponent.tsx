@@ -1,21 +1,47 @@
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import { useState } from "react";
 import { PageComponent } from "@/components/layout/PageComponent";
-import { TimeComponent } from "../TimeComponent";
-import styles from "@/components/StyleSheets/AppStyles.module.css";
-import UserComponent from "../Users/UserComponent";
 import { APIHealth } from "./APIHealthcheck";
+import { TimeComponent } from "../TimeComponent";
+import UserComponent from "../Users/UserComponent";
+import ImageGalleryPage from "../ImageGallery/ImageGalleryComponent";
+import styles from "@/components/StyleSheets/AppStyles.module.css";
 
-// TODO: Dashboard for multiple 
-// TODO: API Live / Ready + coloured coded Green if Live and Red if API unavailable    
 
 function DashboardGrid() {
+    const [totalUsers, setTotalUsers] = useState<number | null>(null);
+    const [totalImageGallery, setImageGallery] = useState<number | null>(null);
+
     return(<div>
-        <table className={styles["width-max"]}>
-            <tbody>
-                <tr><td className={styles["width-half"]}>Test02
-                    <UserComponent />
-                    </td><td className={styles["width-half"]}>Test03</td></tr>
-            </tbody>
-        </table>
+
+      <Tabs defaultActiveKey="main" id="dashboard-tabs" className="mb-3">
+        <Tab eventKey="main" title="Main page">
+            <TimeComponent.DateTable />
+            <br />
+            <APIHealth.APIStatus />
+            <table className={`table ${styles["width-xsmall"]}`}>
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Users</td><td>{totalUsers}</td></tr>
+                    <tr><td>ImageGallery</td><td>{totalImageGallery}</td></tr>
+                </tbody>
+            </table>
+        </Tab>
+
+        <Tab eventKey="users" title="Users">
+            <UserComponent totalRecords={setTotalUsers} />
+        </Tab>
+
+        <Tab eventKey="images" title="Image Gallery">
+            <ImageGalleryPage totalRecords={setImageGallery} />
+        </Tab>
+      </Tabs>
     </div>);
 }
 
@@ -23,9 +49,7 @@ function DashboardExport() {
     const title: string = "Dashboard By Preetpal Basson";
 
     return (
-        <div style={{alignContent: "center", paddingLeft: "35%"} }>
-            <APIHealth.APIStatus />
-            <TimeComponent.DateTable />
+        <div style={{alignContent: "center", padding: "5%"} }>
             <PageComponent.PageHeader headerText={title} />
             <DashboardGrid />
         </div>
