@@ -41,13 +41,18 @@ function APIStatus() {
     <div aria-live="polite">
       <h3>API STATUS: </h3>
       <table className={`table ${appStyles["width-xsmall"]}`}>
-        <thead>
-            <th>LIVE:</th>
-            <th>READY:</th>
+        <thead><tr>
+            <th>HEALTH </th>
+            <th>STATUS </th>
+        </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr> 
+            <td>LIVE </td>
             <td>{indicator(health?.live, "Live", "Unavailable")}</td>
+          </tr>
+          <tr>
+            <td>READY</td>
             <td>{indicator(health?.ready, "Healthy", "Unhealthy")}</td>
           </tr>
         </tbody>

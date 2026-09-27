@@ -18,8 +18,35 @@ function DashboardGrid() {
       <Tabs defaultActiveKey="main" id="dashboard-tabs" className="mb-3">
         <Tab eventKey="main" title="Main page">
             <TimeComponent.DateTable />
-            <br />
-            <APIHealth.APIStatus />
+            <table className={`table ${styles["width-half"]}`}>
+                <tbody>
+                    <tr>
+                        <td> <APIHealth.APIStatus /> </td>
+                        <td> <DashboardStatus totalUsers={totalUsers} totalImageGallery={totalImageGallery} /> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </Tab>
+
+        <Tab eventKey="users" title="Users">
+            <UserComponent totalRecords={setTotalUsers} />
+        </Tab>
+
+        <Tab eventKey="images" title="Image Gallery">
+            <ImageGalleryPage totalRecords={setImageGallery} />
+        </Tab>
+      </Tabs>
+    </div>);
+}
+
+function DashboardStatus({ totalUsers, totalImageGallery }: {
+    totalUsers: number | null;
+    totalImageGallery: number | null;
+}) {
+    return(
+        <div>
+          <h3>MODULE STATUS: </h3>
             <table className={`table ${styles["width-xsmall"]}`}>
                 <thead>
                     <tr>
@@ -32,17 +59,8 @@ function DashboardGrid() {
                     <tr><td>ImageGallery</td><td>{totalImageGallery}</td></tr>
                 </tbody>
             </table>
-        </Tab>
-
-        <Tab eventKey="users" title="Users">
-            <UserComponent totalRecords={setTotalUsers} />
-        </Tab>
-
-        <Tab eventKey="images" title="Image Gallery">
-            <ImageGalleryPage totalRecords={setImageGallery} />
-        </Tab>
-      </Tabs>
-    </div>);
+        </div>
+    );
 }
 
 function DashboardExport() {

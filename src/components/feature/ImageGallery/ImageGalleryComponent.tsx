@@ -55,8 +55,8 @@ return (
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Gallery Name</th>
-                  <th scope="col">Gallery Path</th>
+                  <th>Gallery Name</th>
+                  <th>Gallery Path</th>
                 </tr>
               </thead>
 
