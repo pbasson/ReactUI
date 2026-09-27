@@ -1,21 +1,87 @@
-.tableContainer {
-  height: 400px; /* Fixed height is required */
-  overflow-y: scroll; /* Enables vertical scrollbar */
-  overflow-x: auto; /* Optional: enables horizontal scroll if needed */
-}
-
-.width-max
-{
+.width-max {
   width: 100%;
 }
 
-
-.width-half
-{
+.width-half {
   width: 50%;
 }
 
-.width-xsmall
-{
-  width: 15%;
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-block: 24px;
+}
+
+.card {
+  min-width: 0;
+  padding: 24px;
+  background: #fff;
+  color: #212529;
+  border: 1px solid #dee2e6;
+  border-radius: 12px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.countBadge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #e9ecef;
+  color: #343a40;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.tableContainer {
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+}
+
+.tableContainer table {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.tableContainer th,
+.tableContainer td {
+  padding: 12px 16px;
+  vertical-align: middle;
+}
+
+.tableContainer thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f1f3f5;
+}
+
+.tableContainer td {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  .statusGrid {
+    grid-template-columns: 1fr;
+  }
 }

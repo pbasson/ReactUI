@@ -40,15 +40,20 @@ function ImageGalleryPage( {totalRecords} : ImageGalleryProps ) {
 
 return (
   <div>
-    <h1>Image Gallery</h1>
+    <div className={styles.sectionHeader}>
+      <h2>Image Gallery</h2>
+      {!loading && !error && (
+        <span className={styles.countBadge}>
+          {response.totalRecords} galleries
+        </span>
+      )}
+    </div>
 
     {loading && <p role="status">Loading...</p>}
     {error && <p role="alert">{error}</p>}
 
     {!loading && !error && (
       <>
-        <p>Total ImageGallery: {response.totalRecords}</p>
-
         {response.totalRecords === 0 ? ( <p>No data found</p>) : (
 
           <div className={styles.tableContainer}>

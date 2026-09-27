@@ -18,15 +18,18 @@ function DashboardGrid() {
       <Tabs defaultActiveKey="main" id="dashboard-tabs" className="mb-3">
         <Tab eventKey="main" title="Main page">
             <TimeComponent.DateTable />
-            <table className={`table ${styles["width-half"]}`}>
-                <tbody>
-                    <tr>
-                        <td> <APIHealth.APIStatus /> </td>
-                        <td> <DashboardStatus totalUsers={totalUsers} totalImageGallery={totalImageGallery} /> </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div className={styles.statusGrid}>
+                <div className={styles.card}>
+                    <APIHealth.APIStatus />
+                </div>
 
+                <div className={styles.card}>
+                    <DashboardStatus
+                    totalUsers={totalUsers}
+                    totalImageGallery={totalImageGallery}
+                    />
+                </div>
+            </div>
         </Tab>
 
         <Tab eventKey="users" title="Users">
@@ -67,7 +70,7 @@ function DashboardExport() {
     const title: string = "Dashboard By Preetpal Basson";
 
     return (
-        <div style={{alignContent: "center", padding: "5%"} }>
+        <div className={styles.dashboard}>
             <PageComponent.PageHeader headerText={title} />
             <DashboardGrid />
         </div>

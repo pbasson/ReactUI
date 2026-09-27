@@ -38,15 +38,20 @@ function UsersPage( { totalRecords} : UserComponentProps) {
 
 return (
   <div>
-    <h1>Users</h1>
+    <div className={styles.sectionHeader}>
+      <h2>Users</h2>
+      {!loading && !error && (
+        <span className={styles.countBadge}>
+          {users.totalRecords} users
+        </span>
+      )}
+    </div>
 
     {loading && <p role="status">Loading users…</p>}
     {error && <p role="alert">{error}</p>}
 
     {!loading && !error && (
       <>
-        <p>Total users: {users.totalRecords}</p>
-
         {users.totalRecords === 0 ? ( <p>No users found.</p>) : (
 
           <div className={styles.tableContainer}>
