@@ -1,10 +1,12 @@
 services:
   myapp:
     image: reactui:latest
-    build: 
-      context: .
-      dockerfile: /src/Dockerfile
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
-      - "3000:3000"
-    volumes:
-      - /home/preet/Projects/Projects-W/Web-Projects/Web-Projects-001/reactui/src:/app
+      - "3001:3001"

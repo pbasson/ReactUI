@@ -1,0 +1,13 @@
+.indicator {
+  display: inline-block;
+  min-width: 110px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.checking { background-color: #4b5563; }
+.healthy { background-color: #15803d; }
+.unhealthy { background-color: #b91c1c; }
