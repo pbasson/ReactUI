@@ -107,8 +107,9 @@ Development and production use the same service and port; run one mode at a time
 
 ### GitHub Actions build pipeline
 
-`.github/workflows/nextjs.yml` runs for pushes and pull requests targeting
-`master`, `main`, or `development`, version tags (`v*`), and manual runs.
+`.github/workflows/nextjs.yml` runs for pushes to `master` or `development`,
+pull requests targeting `master`, version tags (`v*`), and manual runs. Merging
+a pull request into `master` triggers a new build through the push event.
 It installs dependencies and builds Next.js from `src`, builds the Dockerfile's
 production `runtime` stage, and checks that the container serves the homepage.
 The smoke check does not test backend API connectivity.
