@@ -67,6 +67,7 @@ return (
                   <th>Full name</th>
                   <th>Date of birth</th>
                   <th>Email</th>
+                  <th>Details</th>
                 </tr>
               </thead>
 
@@ -77,6 +78,10 @@ return (
                     <td>{[user.firstName, user.lastName].filter(Boolean).join(" ") ?? "-"} </td>
                     <td>{user.dateOfBirth ?? "—"}</td>
                     <td>{user.email ?? "—"}</td>
+                    <td>
+                        <button type="button" className="btn btn-outline-primary" 
+                          onClick={() => void loadData()} disabled={loading} > Edit </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
