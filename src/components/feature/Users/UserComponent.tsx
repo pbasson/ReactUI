@@ -19,7 +19,11 @@ function UsersPage({ totalRecords }: UserComponentProps) {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [showForm, setShowForm] = useState(false);
 
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
   function closeForm() {
+    if (saving) return;
     setShowForm(false);
     setSelectedUser(null);
   }
@@ -62,16 +66,22 @@ return (
       </button>
     </div>
 
-    <Modal show={showForm} onHide={closeForm} centered aria-labelledby="edit-user-title">
-      <Modal.Header closeButton>
-        <Modal.Title id="edit-user-title">Edit user</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {showForm && selectedUser && (
-          <UserCard key={selectedUser.id} user={selectedUser} onCancel={closeForm} />
+    <Modal show={showForm} onHide={closeForm} backdrop={saving ? "static" : true} keyboard={!saving} centered aria-labelledby="edit-user-title">
+      <Modal.Header closeButton={!saving}> <Modal.Title id="edit-user-title">Edit user</Modal.Title> </Modal.Header>
+      <Modal.Body> {showForm && selectedUser && (
+          <UserCard key={selectedUser.id} user={selectedUser} onCancel={closeForm}
+            saving={saving} onSavingChange={setSaving}
+            onSaved={message => {
+              setShowForm(false);
+              setSelectedUser(null);
+              setSaveMessage(message);
+              void loadData();
+            }} />
         )}
       </Modal.Body>
     </Modal>
+
+    {saveMessage && <p role="status" className="alert alert-success">{saveMessage}</p>}
 
     <RequestStatus loading={loading} error={error} loadingMessage="Loading users…" />
 
@@ -100,7 +110,7 @@ return (
                     <td>{user.email ?? "—"}</td>
                     <td>
                         <button type="button" className="btn btn-outline-primary" 
-                          onClick={() => { setSelectedUser(user); setShowForm(true); }} disabled={loading} > Edit </button>
+                          onClick={() => { setSaveMessage(null); setSelectedUser(user); setShowForm(true); }} disabled={loading} > Edit </button>
                     </td>
                   </tr>
                 ))}

@@ -13,3 +13,12 @@ export interface UsersResponse {
 }
 
 export type CreateUserRequest = Omit<User, "id">;
+
+export interface UpdateUserRequest {
+  id: number;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: string | null;
+}
