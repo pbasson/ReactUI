@@ -1,5 +1,5 @@
 import { useState } from "react";
-import appstyle from "../StyleSheets/AppStyles.module.css";
+import appstyle from "@/components/StyleSheets/AppStyles.module.css";
 
 
 function InputTable()

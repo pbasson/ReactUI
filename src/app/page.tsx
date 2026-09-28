@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 
 import About from "../components/feature/about/about";
-import { TestComponent } from "@/components/feature/TestComponent";
+import { TestComponent } from "@/components/feature/about/TestComponent";
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import { DashboardComponent } from "@/components/feature/Dashboard/DashboardComponent";
 

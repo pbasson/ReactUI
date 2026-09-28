@@ -3,7 +3,7 @@ import Tabs from "react-bootstrap/Tabs";
 import { useState } from "react";
 import { PageComponent } from "@/components/layout/PageComponent";
 import { APIHealth } from "./APIHealthcheck";
-import { TimeComponent } from "../TimeComponent";
+import { TimeComponent } from "../about/TimeComponent";
 import UserComponent from "../Users/UserComponent";
 import ImageGalleryPage from "../ImageGallery/ImageGalleryComponent";
 import styles from "@/components/StyleSheets/AppStyles.module.css";

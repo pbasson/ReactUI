@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "@/components/StyleSheets/AppStyles.module.css";
+import Modal from "react-bootstrap/Modal";
+import UserCard from "./UserCard";
 import RequestStatus from "@/components/common/RequestStatus";
 import { getUsers } from "@/services/userService";
-import type { UsersResponse } from "@/models/user";
+import type { User, UsersResponse } from "@/models/User";
 
 
 interface UserComponentProps { totalRecords: (count: number) => void; }
@@ -14,6 +16,13 @@ function UsersPage({ totalRecords }: UserComponentProps) {
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<UsersResponse>({ records: [], totalRecords: 0 });
   const requestId = useRef(0);
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [showForm, setShowForm] = useState(false);
+
+  function closeForm() {
+    setShowForm(false);
+    setSelectedUser(null);
+  }
 
   const loadData = useCallback(async () => {
     const currentRequest = ++requestId.current;
@@ -53,6 +62,17 @@ return (
       </button>
     </div>
 
+    <Modal show={showForm} onHide={closeForm} centered aria-labelledby="edit-user-title">
+      <Modal.Header closeButton>
+        <Modal.Title id="edit-user-title">Edit user</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {showForm && selectedUser && (
+          <UserCard key={selectedUser.id} user={selectedUser} onCancel={closeForm} />
+        )}
+      </Modal.Body>
+    </Modal>
+
     <RequestStatus loading={loading} error={error} loadingMessage="Loading users…" />
 
     {!loading && !error && (
@@ -80,7 +100,7 @@ return (
                     <td>{user.email ?? "—"}</td>
                     <td>
                         <button type="button" className="btn btn-outline-primary" 
-                          onClick={() => void loadData()} disabled={loading} > Edit </button>
+                          onClick={() => { setSelectedUser(user); setShowForm(true); }} disabled={loading} > Edit </button>
                     </td>
                   </tr>
                 ))}

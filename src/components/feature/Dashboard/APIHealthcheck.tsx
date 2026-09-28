@@ -42,17 +42,17 @@ function APIStatus() {
       <h3>API STATUS: </h3>
       <table className={`table ${appStyles["width-xsmall"]}`}>
         <thead><tr>
-            <th>HEALTH </th>
-            <th>STATUS </th>
+            <th>Health </th>
+            <th>Status </th>
         </tr>
         </thead>
         <tbody>
           <tr> 
-            <td>LIVE </td>
+            <td>Live </td>
             <td>{indicator(health?.live, "Live", "Unavailable")}</td>
           </tr>
           <tr>
-            <td>READY</td>
+            <td>Ready</td>
             <td>{indicator(health?.ready, "Healthy", "Unhealthy")}</td>
           </tr>
         </tbody>

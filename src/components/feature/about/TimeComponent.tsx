@@ -1,5 +1,5 @@
 // "use client";
-import appstyle from "../StyleSheets/AppStyles.module.css";
+import appstyle from "@/components/StyleSheets/AppStyles.module.css";
 
 import { useState, useEffect } from "react";
 
