@@ -1,42 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "@/components/StyleSheets/AppStyles.module.css";
+import RequestStatus from "@/components/common/RequestStatus";
 import { getResponse } from "@/services/imagegalleryService";
 import type { ImageGalleryResponse } from "@/models/image-gallery";
-import styles from "@/components/StyleSheets/AppStyles.module.css";
 
 
-interface ImageGalleryProps {
-  totalRecords: (count: number) => void;
-}
+interface ImageGalleryProps { totalRecords: (count: number) => void; }
 
 function ImageGalleryPage( {totalRecords} : ImageGalleryProps ) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [response, setResponse] = useState<ImageGalleryResponse>({ records: [], totalRecords: 0 });
+    const requestId = useRef(0);
 
-  useEffect(() => {
-    let cancelled = false;
+    const loadData = useCallback(async () => {
+      const currentRequest = ++requestId.current;
+      setLoading(true);
+      setError(null);
 
-    async function loadData() {
       try {
         const data = await getResponse();
-        if (!cancelled) {
-          setResponse(data);
-          totalRecords(data.totalRecords);
-        }
+        if (currentRequest !== requestId.current) return;
+        setResponse(data);
+        totalRecords(data.totalRecords);
       } catch {
-        if (!cancelled) setError("Unable to load data. Please try again later.");
+        if (currentRequest === requestId.current) {
+          setError("Unable to load data. Please try again later.");
+        }
       } finally {
-        if (!cancelled) setLoading(false);
+        if (currentRequest === requestId.current) setLoading(false);
       }
-    }
+    }, [totalRecords]);
 
-    void loadData();
-    return () => {
-      cancelled = true;
-    };
-  }, [totalRecords]);
+    useEffect(() => {
+      void loadData();
+      return () => {
+        requestId.current += 1;
+      };
+    }, [loadData]);
 
 return (
   <div>
@@ -47,10 +50,12 @@ return (
           {response.totalRecords} galleries
         </span>
       )}
+      <button type="button" className="btn btn-outline-primary" onClick={() => void loadData()}
+        disabled={loading} > {loading ? "Loading…" : "Refresh"}
+      </button>
     </div>
 
-    {loading && <p role="status">Loading...</p>}
-    {error && <p role="alert">{error}</p>}
+    <RequestStatus loading={loading} error={error} loadingMessage="Loading" />
 
     {!loading && !error && (
       <>

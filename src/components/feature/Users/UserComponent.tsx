@@ -1,54 +1,63 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "@/components/StyleSheets/AppStyles.module.css";
+import RequestStatus from "@/components/common/RequestStatus";
 import { getUsers } from "@/services/userService";
 import type { UsersResponse } from "@/models/user";
-import styles from "@/components/StyleSheets/AppStyles.module.css";
 
 
 interface UserComponentProps { totalRecords: (count: number) => void; }
 
-function UsersPage( { totalRecords} : UserComponentProps) {
-  const [users, setUsers] = useState<UsersResponse>({ records: [], totalRecords: 0 });
+function UsersPage({ totalRecords }: UserComponentProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [response, setResponse] = useState<UsersResponse>({ records: [], totalRecords: 0 });
+  const requestId = useRef(0);
+
+  const loadData = useCallback(async () => {
+    const currentRequest = ++requestId.current;
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await getUsers();
+      if (currentRequest !== requestId.current) return;
+      setResponse(data);
+      totalRecords(data.totalRecords);
+    } catch {
+      if (currentRequest === requestId.current) {
+        setError("Unable to load data. Please try again later.");
+      }
+    } finally {
+      if (currentRequest === requestId.current) setLoading(false);
+    }
+  }, [totalRecords]);
 
   useEffect(() => {
-    let cancelled = false;
-
-    async function loadUsers() {
-      try {
-        const data = await getUsers();
-        if (!cancelled) {
-          setUsers(data);
-          totalRecords(data.totalRecords);
-        }
-      } catch {
-        if (!cancelled) setError("Unable to load users. Please try again later.");
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    void loadUsers();
-    return () => { cancelled = true; };
-  }, [totalRecords]);
+    void loadData();
+    return () => {
+      requestId.current += 1;
+    };
+  }, [loadData]);
 
 return (
   <div>
     <div className={styles.sectionHeader}>
       <h2>Users</h2>
       {!loading && !error && (
-        <span className={styles.countBadge}> {users.totalRecords} users </span>
+        <span className={styles.countBadge}> {response.totalRecords} users </span>
       )}
+      <button type="button" className="btn btn-outline-primary" onClick={() => void loadData()}
+        disabled={loading} > {loading ? "Loading…" : "Refresh"}
+      </button>
     </div>
 
-    {loading && <p role="status">Loading users…</p>}
-    {error && <p role="alert">{error}</p>}
+    <RequestStatus loading={loading} error={error} loadingMessage="Loading users…" />
 
     {!loading && !error && (
       <>
-        {users.totalRecords === 0 ? ( <p>No users found.</p>) : (
+        {response.totalRecords === 0 ? ( <p>No users found.</p>) : (
 
           <div className={styles.tableContainer}>
             <table className="table table-striped table-bordered">
@@ -62,7 +71,7 @@ return (
               </thead>
 
               <tbody>
-                {users.records.map(user => (
+                {response.records.map(user => (
                   <tr key={user.id}>
                     <td>{user.userName ?? "—"}</td>
                     <td>{[user.firstName, user.lastName].filter(Boolean).join(" ") ?? "-"} </td>
