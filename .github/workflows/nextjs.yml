@@ -2,7 +2,7 @@ name: Build Next.js and Docker image
 
 on:
   push:
-    branches: [development]
+    branches: [master, development]
     tags: ["v*"]
   pull_request:
     branches: [master]
