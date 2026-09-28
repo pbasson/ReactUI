@@ -6,9 +6,7 @@ import type { UsersResponse } from "@/models/user";
 import styles from "@/components/StyleSheets/AppStyles.module.css";
 
 
-interface UserComponentProps {
-  totalRecords: (count: number) => void;
-}
+interface UserComponentProps { totalRecords: (count: number) => void; }
 
 function UsersPage( { totalRecords} : UserComponentProps) {
   const [users, setUsers] = useState<UsersResponse>({ records: [], totalRecords: 0 });
@@ -21,9 +19,11 @@ function UsersPage( { totalRecords} : UserComponentProps) {
     async function loadUsers() {
       try {
         const data = await getUsers();
-        if (!cancelled) setUsers(data);
+        if (!cancelled) {
+          setUsers(data);
           totalRecords(data.totalRecords);
-        } catch {
+        }
+      } catch {
         if (!cancelled) setError("Unable to load users. Please try again later.");
       } finally {
         if (!cancelled) setLoading(false);
@@ -31,9 +31,7 @@ function UsersPage( { totalRecords} : UserComponentProps) {
     }
 
     void loadUsers();
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [totalRecords]);
 
 return (
@@ -41,9 +39,7 @@ return (
     <div className={styles.sectionHeader}>
       <h2>Users</h2>
       {!loading && !error && (
-        <span className={styles.countBadge}>
-          {users.totalRecords} users
-        </span>
+        <span className={styles.countBadge}> {users.totalRecords} users </span>
       )}
     </div>
 
@@ -58,10 +54,10 @@ return (
             <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Username</th>
-                  <th scope="col">Full name</th>
-                  <th scope="col">Date of birth</th>
-                  <th scope="col">Email</th>
+                  <th>Username</th>
+                  <th>Full name</th>
+                  <th>Date of birth</th>
+                  <th>Email</th>
                 </tr>
               </thead>
 
@@ -69,7 +65,7 @@ return (
                 {users.records.map(user => (
                   <tr key={user.id}>
                     <td>{user.userName ?? "—"}</td>
-                    <td> {[user.firstName, user.lastName].filter(Boolean).join(" ") ?? "-"} </td>
+                    <td>{[user.firstName, user.lastName].filter(Boolean).join(" ") ?? "-"} </td>
                     <td>{user.dateOfBirth ?? "—"}</td>
                     <td>{user.email ?? "—"}</td>
                   </tr>

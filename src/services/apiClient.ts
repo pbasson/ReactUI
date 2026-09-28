@@ -9,23 +9,30 @@ export async function apiFetch(endpoint: string, options: ApiRequestOptions = {}
     throw new Error("API_BASE_URL is not configured.");
   }
 
-  const port = process.env.API_BASE_PORT;
-  if (!port || !/^\d+$/.test(port) || Number(port) < 1 || Number(port) > 65535) {
-    throw new Error("API_BASE_PORT must be a port number between 1 and 65535.");
-  }
-
   const address = new URL(baseUrl);
+
   if (!["http:", "https:"].includes(address.protocol)) {
     throw new Error("API_BASE_URL must use http or https.");
   }
-  address.port = port;
 
+  const port = process.env.API_BASE_PORT?.trim();
+
+  if (port) {
+    const portNumber = Number(port);
+
+    if (!/^\d+$/.test(port) || portNumber < 1 || portNumber > 65535) {
+      throw new Error("API_BASE_PORT must be between 1 and 65535.");
+    }
+
+    address.port = String(portNumber);
+  }
+  
   const url = [address.origin, options.prefix ?? process.env.API_MAIN_URL, endpoint]
     .filter(Boolean)
     .map(part => part!.replace(/^\/+|\/+$/g, ""))
     .join("/");
 
-  console.log(`[API] GET ${url}`);
+  // console.log(`[API] GET ${url}`);
 
   const response = await fetch(url, {
     method: "GET",
